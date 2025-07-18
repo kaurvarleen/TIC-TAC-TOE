@@ -3,6 +3,12 @@ let resetbtn = document.querySelector("#reset-btn");
 let newGamebtn = document.querySelector("#new-btn");
 let msgContainer = document.querySelector(".msg-Container");
 let msg = document.querySelector("#msg");
+const gif = document.querySelector("#winner-gif");
+const container = document.querySelector(".container")
+
+let scoreX = 0, scoreO = 0 ;
+const scoreXDisplay = document.getElementById("score-x");
+const scoreODisplay = document.getElementById("score-o");
 
 let turnX = true; // playerX playerO
 let isGameOver = false;
@@ -34,23 +40,31 @@ boxes.forEach((box) => {
   });
 });
 
-const showWinner = (winner) => {
-  msg.innerText = `Congratulations, Winner is ${winner}`;
-  msgContainer.classList.remove("hide");
-  document.querySelector(".container").classList.add("blur");
-  disableboxes();
-  isGameOver = true;
-};
+function showWinner(winner) {
+  msg.innerText = `🎉Congratulation Winner: Player ${winner}`;
+  gif.classList.remove("hide");
 
-const showDraw = () => {
+  msgContainer.classList.remove("hide");
+   document.querySelector(".game").classList.add("blur");
+   resetbtn.classList.add("hide");
+  isGameOver = true;
+
+  disableboxes();
+  updateScore(winner);
+}
+
+function showDraw() {
   msg.innerText = "It's a Draw!";
+  gif.classList.add("hide");
   msgContainer.classList.remove("hide");
-   document.querySelector(".container").classList.add("blur");
-  disableboxes();
-  isGameOver = true;
-};
+ document.querySelector(".game").classList.add("blur");
 
-const checkWinner = () => {
+  isGameOver = true;
+  disableboxes();
+  updateScore("Draw");
+}
+
+function checkWinner() {
   let winnerFound = false;
 
   for (let pattern of winPatterns) {
@@ -93,13 +107,39 @@ const enableboxes = () => {
   });
 };
 
-const resetGame = () => {
+function resetGame() {
   turnX = true;
   isGameOver = false;
   enableboxes();
   msgContainer.classList.add("hide");
-  document.querySelector(".container").classList.remove("blur");
-};
+  gif.classList.add("hide");
+document.querySelector(".game").classList.remove("blur");
 
-newGamebtn.addEventListener("click", resetGame);
-resetbtn.addEventListener("click", resetGame);
+}
+ 
+
+
+
+function updateScore(result) {
+  if (result === "X") {
+    scoreX++;
+    scoreXDisplay.textContent = scoreX;
+  } else if (result === "O") {
+    scoreO++;
+    scoreODisplay.textContent = scoreO;
+  } 
+  
+}
+
+
+newGamebtn.addEventListener("click", () => {
+  resetbtn.classList.remove("hide");
+  resetGame();
+});
+resetbtn.addEventListener("click", () => {
+  scoreX = scoreO = scoreDraw = 0;
+  scoreXDisplay.textContent = scoreODisplay.textContent  = 0;
+  resetGame();
+});
+
+

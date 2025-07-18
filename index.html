@@ -9,6 +9,9 @@
 </head>
 <body>
    <h1>TIC TAC TOE</h1>
+
+
+  </div>
    <div class="container">
     <div class="game">
         <button class="box"></button>
@@ -21,9 +24,22 @@
         <button class="box"></button>
         <button class="box"></button>
     </div>
+       <div class="scoreboard">
+   <div>
+     <p>Player X: </p>
+     <p id="score-x">0</p>
+   </div>
+    <div>
+        <p>Player O:</p>
+        <p id="score-o">0</p>
+        
+    </div>
+
    </div>  
    <div class="msg-Container hide">
-    <p id="msg"></p>
+   
+    <img id="winner-gif" src="party-background.gif" alt="Celebration GIF" class="hide" />
+     <p id="msg"></p>
     <button id="new-btn">New Game</button>
    </div>
    <button id="reset-btn">Reset Game</button>
