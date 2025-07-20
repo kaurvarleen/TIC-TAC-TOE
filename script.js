@@ -6,9 +6,15 @@ let msg = document.querySelector("#msg");
 const gif = document.querySelector("#winner-gif");
 const container = document.querySelector(".container")
 
-let scoreX = 0, scoreO = 0 ;
 const scoreXDisplay = document.getElementById("score-x");
 const scoreODisplay = document.getElementById("score-o");
+let scoreX = parseInt(sessionStorageStorage.getItem("scoreX")) || 0;
+let scoreO = parseInt(sessionStorageStorage.getItem("scoreO")) || 0;
+
+
+scoreXDisplay.textContent = scoreX;
+scoreODisplay.textContent = scoreO;
+
 
 let turnX = true; // playerX playerO
 let isGameOver = false;
@@ -123,9 +129,11 @@ document.querySelector(".game").classList.remove("blur");
 function updateScore(result) {
   if (result === "X") {
     scoreX++;
+    sessionStorageStorage.setItem("scorex" , scoreX);
     scoreXDisplay.textContent = scoreX;
   } else if (result === "O") {
     scoreO++;
+    sessionStorageStorage.setItem("scoreo" , scoreO);
     scoreODisplay.textContent = scoreO;
   } 
   
@@ -136,10 +144,6 @@ newGamebtn.addEventListener("click", () => {
   resetbtn.classList.remove("hide");
   resetGame();
 });
-resetbtn.addEventListener("click", () => {
-  scoreX = scoreO = scoreDraw = 0;
-  scoreXDisplay.textContent = scoreODisplay.textContent  = 0;
-  resetGame();
-});
+resetbtn.addEventListener("click", resetGame);
 
 
